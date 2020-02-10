@@ -16,11 +16,13 @@ export default class Search extends Component {
 
     onChangeText = (event)=>{
         console.log(event.target.name, event.target.value)
+        this.setState({ text: event.target.value });
+        
     }
 
     render() {
         return (
-            <Page onChangeText={this.onChangeText}/>
+            <Page onChangeText={this.onChangeText} text={this.state.text}/>
         )
     }
 }
