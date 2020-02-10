@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { Fragment } from 'react';
 
-const Page = () => {
+const Page = (props) => {
+
+
     return (
-        <div>
-            Search
-        </div>
+        <Fragment>
+            <form>
+                <input type="text" name="search" placeholder="Search" onChange={(event)=> props.onChangeText(event)}/>
+            </form>
+        </Fragment>
     )
 }
 
