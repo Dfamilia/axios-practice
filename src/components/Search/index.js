@@ -9,50 +9,56 @@ export default class Search extends Component {
 
         this.state = {
             text: '',
-            pokemonApiLoad: [],
-            pokemonSearchList: [],
-            isFetching: true
+            pokemonData:[],
         }
     }
 
+
     componentDidMount(){
+
         Axios.get('https://pokeapi.co/api/v2/pokemon?limit=964')
         .then(data =>{
-            this.setState({ pokemonApiLoad: data.data.results})
+            return data.data.results;
+        })
+        .then(pokemonsList=>{
+            const statePokemonData = [];
+
+            pokemonsList.length > 0 && pokemonsList.forEach(pokemon => {
+                Axios.get(pokemon.url).then( pokemon => {
+                    statePokemonData.push(pokemon.data);
+                })
+            });   
+
+            this.setState({ pokemonData: statePokemonData })
+            this.props.getPokemonsFounded(this.state.pokemonData);
         })
     }
 
     onChangeText = (event)=>{
-        this.findPokemonIterations(event.target.value)
-        this.setState({ text: event.target.value });
-        // console.log(event.target.name,this.state.pokemonApiLoad)
 
-        
+        this.setState({ text: event.target.value });
+
+        this.findPokemonIterations(event.target.value)
     }
 
     findPokemonIterations = (text) => {
+
         const pokemonReq = new RegExp(`^${text}`,'i');
-        const pokemonFounded = this.state.pokemonApiLoad.reduce((list, pokemon)=>
+        const pokemonFounded = (!text) ? this.state.pokemonData : this.state.pokemonData.reduce((list, pokemon)=>
         {
-            if(pokemonReq.test(pokemon.name)) list.push(pokemon.name)
+            if(pokemonReq.test(pokemon.name) && text !== ".") list.push(pokemon)
             return list;
 
         }, []);
 
-        this.setState({pokemonSearchList: pokemonFounded});
+        this.props.getPokemonsFounded(pokemonFounded);
+
     }
 
     render() {
 
-        console.log("Api Load", this.state.pokemonApiLoad);
-
-        console.log("TEXT",this.state.text);
-
-        console.log("POKEMONS FOUNDED",this.state.pokemonSearchList)
-
-
         return (
-            <Page onChangeText={this.onChangeText} text={this.state.text}/>
+            <Page onChangeText={this.onChangeText} text={this.state.text} />
         )
     }
 }

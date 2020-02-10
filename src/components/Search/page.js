@@ -6,7 +6,7 @@ const Page = (props) => {
 
     return (
         <Fragment>
-            <form>
+            <form onSubmit={(event)=>event.preventDefault()}>
                 <input type="text" name="search" placeholder="Search" onChange={(event)=> onChangeText(event)} value={text}/>
             </form>
         </Fragment>
