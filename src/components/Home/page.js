@@ -1,25 +1,16 @@
-import React, { Component, Fragment } from 'react';
+import React from 'react';
 
-class Page extends Component {
-    componentDidUpdate(){
-        let hola = this.props.pokemonsList;
-    }
+const Page = (props) => {
 
-    render() {
-        const { pokemonsList }=this.props;
-        console.log("Home Page", pokemonsList);
-        return (
-            <Fragment>
-                {/* {pokemonsList.length > 0 ?
-                
-                pokemonsList.forEach(pokemon => {
-                <div><div>{ pokemon.name }</div><div>{pokemonsList.length}</div></div>)
-                :
-                    <div>FETCHING......</div>
-                } */}
-            </Fragment>
-        )
-    }
+    const { pokemonData } = props;
+    console.log(pokemonData)
+    return (
+        <article>
+            {
+                pokemonData
+            }
+        </article>
+    )
 }
 
 export default Page;
