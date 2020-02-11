@@ -16,7 +16,7 @@ export default class Search extends Component {
 
     componentDidMount(){
 
-        Axios.get('https://pokeapi.co/api/v2/pokemon?limit=964')
+        Axios.get('https://pokeapi.co/api/v2/pokemon?limit=200')
         .then(data =>{
             return data.data.results;
         })

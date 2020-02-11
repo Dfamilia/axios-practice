@@ -1,15 +1,15 @@
-import React, { Fragment } from 'react';
+import React from 'react';
 
 const Page = (props) => {
 
     let { text, onChangeText } = props;
 
     return (
-        <Fragment>
+        <section>
             <form onSubmit={(event)=>event.preventDefault()}>
                 <input type="text" name="search" placeholder="Search" onChange={(event)=> onChangeText(event)} value={text}/>
             </form>
-        </Fragment>
+        </section>
     )
 }
 

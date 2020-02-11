@@ -2,13 +2,11 @@ import React from 'react';
 
 const Page = (props) => {
 
-    const { pokemonData } = props;
-    console.log(pokemonData)
+    const { pokemonsData } = props;
+    console.log(pokemonsData)
     return (
         <article>
-            {
-                pokemonData
-            }
+            <img src={pokemonsData.sprites.front_default} alt={pokemonsData.name}/>
         </article>
     )
 }

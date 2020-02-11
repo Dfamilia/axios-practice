@@ -7,32 +7,33 @@ export default class Home extends Component {
         super(props);
 
         this.state={
-            pokemonsList:''
+            pokemonsList:[]
         }
     }
 
-    getPokemonsFounded= (pokemonsList)=>{
-        this.setState({ pokemonsList: pokemonsList })
+    getPokemonsFounded= async (pokemonsList)=>{
+        await this.setState({ pokemonsList }) 
     }
 
 
     render() {
-        // console.log(this.state.pokemonsList);
-        let pokemons = this.state.pokemonsList;
+        let pokemons = [];
+        if(this.state.pokemonsList.length > 0){
+            this.state.pokemonsList.forEach((pokemon, i)=>{                 
+                pokemons.push(<Page key={i} pokemonsData={pokemon} />)
+            })
+        }
+        
+        console.log(this.state.pokemonsList);
+        
+
         return (
-            <Fragment>
+            <div>
                 <Search getPokemonsFounded={this.getPokemonsFounded} />
                 <div>
-                    {pokemons ?
-                        pokemons.forEach(pokemon => (
-                        <article>{pokemon.name}</article>
-                        // <Page pokemonsData={pokemon} />
-                        ))
-                    :
-                    <article>Is fetching.....</article>
-                    }
+                    {pokemons}
                 </div>
-            </Fragment>
+            </div>
         )
     }
 }
